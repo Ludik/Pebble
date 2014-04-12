@@ -227,6 +227,11 @@ void window_unload(Window *window) {
   gbitmap_destroy(menu_background);
 }
 
+enum {
+            AKEY_NUMBER,
+            AKEY_TEXT,
+        };
+
  void out_sent_handler(DictionaryIterator *sent, void *context) {
    // outgoing message was delivered
  }
@@ -234,16 +239,25 @@ void window_unload(Window *window) {
 
  void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, void *context) {
    // outgoing message failed
+   APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", "Nope out");
  }
 
 
  void in_received_handler(DictionaryIterator *received, void *context) {
    // incoming message received
+   // Check for fields you expect to receive
+          Tuple *text_tuple = dict_find(received, AKEY_TEXT);
+
+          // Act on the found fields received
+          if (text_tuple) {
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
+          }
  }
 
 
  void in_dropped_handler(AppMessageResult reason, void *context) {
    // incoming message dropped
+   APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", "Nope in");
  }
 
  static void init(void) {
