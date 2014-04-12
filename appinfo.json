@@ -1,0 +1,39 @@
+{
+    "versionLabel": "1.0",
+    "uuid": "726247ff-45a1-4f9a-a086-5e53084cbaf7",
+    "appKeys": {},
+    "longName": "Menus",
+    "versionCode": 1,
+    "capabilities": [
+        ""
+    ],
+    "shortName": "Menus",
+    "companyName": "dpcofdc@yahoo.com",
+    "watchapp": {
+        "watchface": false
+    },
+    "resources": {
+        "media": [
+            {
+                "type": "png",
+                "name": "IMAGE_MENU_ICON_BIG_WATCH",
+                "file": "images/menu_icon_big_watch.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_MENU_ICON_SECTOR_WATCH",
+                "file": "images/menu_icon_sector_watch.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_MENU_ICON_BINARY_WATCH",
+                "file": "images/menu_icon_binary_watch.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_BACKGROUND_BRAINS",
+                "file": "images/brains_watch_background.png"
+            }
+        ]
+    }
+}
