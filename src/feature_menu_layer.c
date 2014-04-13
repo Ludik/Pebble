@@ -3,7 +3,7 @@
 #define NUM_MENU_SECTIONS 2
 #define MAX_SIZE 100
 int size;
-int ind = -1;
+int ind;
 TextLayer *text_layer;
 bool inQ = true;
 bool win = false;
@@ -20,24 +20,6 @@ typedef struct {
 }person;
 
 person people[MAX_SIZE];
-  
-static int loadPeople(){
-  size = 6;
-  people[0].name = "Name1";
-  people[0].room = "0224";
-  people[1].name = "Name2";
-  people[1].room = "0226";
-  people[2].name = "Name3";
-  people[2].room = "0228";
-  people[3].name = "Name4";
-  people[3].room = "0230";
-  people[4].name = "Name5";
-  people[4].room = "0232";
-  people[5].name = "Name6";
-  people[5].room = "0220";
-    
-  return 1;
-}
 
 static Window *window1;
 static Window *window2;
@@ -62,7 +44,6 @@ static uint16_t menu_get_num_sections_callback2(MenuLayer *menu_layer, void *dat
 // Each section has a number of items;  we use a callback to specify this
 // You can also dynamically add and remove items using this
 static uint16_t menu_get_num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *data) {
-  loadPeople();
   switch (section_index) {
     case 0:
       return size;
@@ -72,7 +53,6 @@ static uint16_t menu_get_num_rows_callback(MenuLayer *menu_layer, uint16_t secti
 }
 
 static uint16_t menu_get_num_rows_callback2(MenuLayer *menu_layer, uint16_t section_index, void *data) {
-  loadPeople();
   switch (section_index) {
     case 0:
       return 2;
@@ -290,6 +270,9 @@ void deinit(void) {
 }
 
 int main(void) {
+  size = 1;
+  people[0].name = "Nobody in queue";
+  ind = -1;
   window1 = window_create();
   window2 = window_create();
   // Setup the window handlers
