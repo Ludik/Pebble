@@ -227,23 +227,25 @@ enum {
    // incoming message received
    // Check for fields you expect to receive
 
-          // Act on the found fields received
-          APP_LOG(APP_LOG_LEVEL_DEBUG, "ind_val: %d", ind);          
+          // Act on the found fields received          
           if(ind == -1)
           {
             Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
             size = num_tuple->value->int16;
             ind++;
             menu_layer_reload_data(menu_layer);
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size: %d", num_tuple->value->int16);
             return;
-          }
-   
+          }    
+      
           Tuple *text_tuple = dict_find(received, AKEY_TEXT);
    
-          if (text_tuple) {
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
+          if (text_tuple && ind < size) {
+              people[ind].name = text_tuple->value->cstring;
+              ind++;
+              if(ind == size)
+                ind = -1;
           }
+            
  }
 
 
