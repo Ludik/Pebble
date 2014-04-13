@@ -227,7 +227,8 @@ enum {
    // incoming message received
    // Check for fields you expect to receive
 
-          // Act on the found fields received          
+          // Act on the found fields received  
+          APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %d", ind);
           if(ind == -1)
           {
             Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
@@ -238,8 +239,10 @@ enum {
           }    
       
           Tuple *text_tuple = dict_find(received, AKEY_TEXT);
+           
+          APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
    
-          if (text_tuple && ind < size) {
+          if (text_tuple) {
               people[ind].name = text_tuple->value->cstring;
               ind++;
               if(ind == size)
