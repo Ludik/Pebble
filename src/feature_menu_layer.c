@@ -242,6 +242,19 @@ enum {
    APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", "Nope out");
  }
 
+void reload(Window *windowa, Window *windowb)
+{
+  window_set_window_handlers(windowa, (WindowHandlers) {
+    .load = window_load,
+    .unload = window_unload,
+  });
+  window_set_window_handlers(windowb, (WindowHandlers) {
+    .load = window_load,
+    .unload = window_unload,
+  });
+  
+}
+
 int ind = -1;
 
  void in_received_handler(DictionaryIterator *received, void *context) {
@@ -254,6 +267,7 @@ int ind = -1;
             Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
             size = num_tuple->value->int16;
             ind++;
+            reload(window1, window2);
             return;
           }
    
@@ -291,16 +305,9 @@ int main(void) {
   window1 = window_create();
   window2 = window_create();
   // Setup the window handlers
-
+  reload(window1, window2);
   init();
-  window_set_window_handlers(window1, (WindowHandlers) {
-    .load = window_load,
-    .unload = window_unload,
-  });
-  window_set_window_handlers(window2, (WindowHandlers) {
-    .load = window_load,
-    .unload = window_unload,
-  });
+  
 
   window_stack_push(window1, true /* Animated */);
 
