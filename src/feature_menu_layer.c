@@ -3,6 +3,7 @@
 #define NUM_MENU_SECTIONS 2
 #define MAX_SIZE 100
 int size;
+int ind = -1;
 TextLayer *text_layer;
 bool inQ = true;
 bool win = false;
@@ -241,8 +242,6 @@ enum {
    // outgoing message failed
    APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", "Nope out");
  }
-
-int ind = -1;
 
  void in_received_handler(DictionaryIterator *received, void *context) {
    // incoming message received
