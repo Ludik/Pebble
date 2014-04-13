@@ -232,9 +232,12 @@ enum {
           if(ind == -1)
           {
             Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size_1: %d", size);
             size = num_tuple->value->int16;
             ind++;
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size_2: %d", size);
             menu_layer_reload_data(menu_layer);
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size_3: %d", size);
             return;
           }    
       
