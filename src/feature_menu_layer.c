@@ -248,12 +248,14 @@ enum {
    // Check for fields you expect to receive
 
           // Act on the found fields received
+          APP_LOG(APP_LOG_LEVEL_DEBUG, "ind_val: %d", ind);          
           if(ind == -1)
           {
             Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
             size = num_tuple->value->int16;
             ind++;
             menu_layer_reload_data(menu_layer);
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size: %d", num_tuple->value->int16);
             return;
           }
    
