@@ -124,12 +124,14 @@ static void menu_draw_row_callback2(GContext* ctx, const Layer *cell_layer, Menu
     }
 }
 
-void send_message(void){
+void send_message(int n){
 	DictionaryIterator *iter;
 	
 	app_message_outbox_begin(&iter);
 	dict_write_uint8(iter, STATUS_KEY, 0x1);
-  if(inQ)
+  if(n != -1)
+    dict_write_int16(iter, MESSAGE_KEY, n);
+  else if(inQ)
     dict_write_cstring(iter, MESSAGE_KEY, "Remove from queue");
   else
 	  dict_write_cstring(iter, MESSAGE_KEY, "Add to queue");
@@ -147,7 +149,7 @@ void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *da
 
 void menu_select_callback2(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
   
-  send_message();
+  send_message(-1);
   if(cell_index->row == 0)
     inQ = !inQ;
   window_stack_pop(true);
@@ -232,12 +234,9 @@ enum {
           if(ind == -1)
           {
             Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size_1: %d", size);
             size = num_tuple->value->int16;
             ind++;
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size_2: %d", size);
             menu_layer_reload_data(menu_layer);
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Size_3: %d", size);
             return;
           }    
       
@@ -250,7 +249,7 @@ enum {
               if(ind == size)
                 ind = -1;
           }
-            
+          send_message(1); 
  }
 
 
