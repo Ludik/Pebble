@@ -239,10 +239,9 @@ enum {
           }    
       
           Tuple *text_tuple = dict_find(received, AKEY_TEXT);
-           
-          APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
    
           if (text_tuple) {
+              APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
               people[ind].name = text_tuple->value->cstring;
               ind++;
               if(ind == size)
