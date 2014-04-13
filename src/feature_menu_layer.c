@@ -242,13 +242,23 @@ enum {
    APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", "Nope out");
  }
 
+int ind = -1;
 
  void in_received_handler(DictionaryIterator *received, void *context) {
    // incoming message received
    // Check for fields you expect to receive
-          Tuple *text_tuple = dict_find(received, AKEY_TEXT);
 
           // Act on the found fields received
+          if(ind == -1)
+          {
+            Tuple *num_tuple = dict_find(received, AKEY_NUMBER);
+            size = num_tuple->value->int16;
+            ind++;
+            return;
+          }
+   
+          Tuple *text_tuple = dict_find(received, AKEY_TEXT);
+   
           if (text_tuple) {
             APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
           }
